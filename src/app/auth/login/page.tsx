@@ -1,7 +1,7 @@
-
+import { LoginForm } from "@/components/auth/LoginFor";
 
 function LoginPage() {
-    return null
+  return <LoginForm />;
 }
 
 export default LoginPage;

@@ -17,9 +17,9 @@ const DELAY = 0.15;
 
 export const Home = () => {
   return (
-    <section className="sm:py-20 py-[60px] relative">
+    <section className="sm:py-20 py-[60px] max-h-screen relative">
       <Particles
-        className="absolute inset-0 h-full sm:h-[85vh]"
+        className="absolute inset-0 h-full sm:h-[80vh]"
         ease={100}
         quantity={150}
       />

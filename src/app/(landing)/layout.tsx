@@ -3,7 +3,7 @@ import { Navbar } from "./_components/Home/Navbar";
 
 const LandingLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
+    <div className="h-[80vh]">
       <Banner />
       <Navbar />
       {children}
