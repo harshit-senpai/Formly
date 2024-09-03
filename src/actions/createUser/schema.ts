@@ -7,14 +7,16 @@ export const CreateUserSchema = z.object({
       invalid_type_error: "Name must be a string",
     })
     .min(3, {
-      message: "Title is too short",
+      message: "Name is too short",
     }),
   email: z
     .string({
       required_error: "Email is required",
       invalid_type_error: "Email must be a string",
     })
-    .email(),
+    .email({
+      message: "Email is required",
+    }),
   password: z
     .string({
       required_error: "Password is required",

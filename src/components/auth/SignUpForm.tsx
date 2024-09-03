@@ -1,11 +1,51 @@
-import { Label } from "@radix-ui/react-label";
+"use client";
+
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { ChromeIcon, GithubIcon } from "lucide-react";
 import Link from "next/link";
+import { useAction } from "@/hooks/useAction";
+import { createUser } from "@/actions/createUser";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { CreateUserSchema } from "@/actions/createUser/schema";
+import { z } from "zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
+import { toast } from "sonner";
 
 export const SignUpForm = () => {
+  const form = useForm<z.infer<typeof CreateUserSchema>>({
+    resolver: zodResolver(CreateUserSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+      name: "",
+    },
+  });
+
+  const { execute, fieldErrors, isLoading } = useAction(createUser, {
+    onSuccess: () => {
+      toast.success("Registered successfully, continue to signIn");
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
+  const onSubmit = (values: z.infer<typeof CreateUserSchema>) => {
+    execute(values);
+  };
+
+  console.log(fieldErrors);
+
   return (
     <Card className="w-[450px] z-10 mx-auto">
       <CardHeader>
@@ -20,25 +60,75 @@ export const SignUpForm = () => {
         </div>
       </CardHeader>
       <CardContent className="space-y-6">
-        <div className="w-full flex flex-col items-start space-y-2">
-          <Label>Name</Label>
-          <Input placeholder="Your name" type="text" />
-        </div>
-        <div className="w-full flex flex-col items-start space-y-2">
-          <Label>Email</Label>
-          <Input placeholder="youremail@example.com" type="email" />
-        </div>
-        <div className="w-full flex flex-col items-start space-y-2">
-          <Label>Password</Label>
-          <Input placeholder="********" type="password" />
-        </div>
-        <Button className="w-full">Login</Button>
+        <Form {...form}>
+          <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="space-y-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="Your name"
+                        type="name"
+                        disabled={isLoading}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="youremail@example.com"
+                        type="email"
+                        disabled={isLoading}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="******"
+                        type="password"
+                        disabled={isLoading}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <Button type="submit" className="w-full">
+              Register
+            </Button>
+          </form>
+        </Form>
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
             <span className="w-full border-t" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-4 text-muted-foreground">
+            <span className="bg-background px-2 text-muted-foreground">
               Or continue with
             </span>
           </div>
