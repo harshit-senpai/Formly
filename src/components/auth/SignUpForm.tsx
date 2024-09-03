@@ -1,13 +1,11 @@
-"use client";
-
-import { ChromeIcon, GithubIcon } from "lucide-react";
-import { Button } from "../ui/button";
+import { Label } from "@radix-ui/react-label";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import { Input } from "../ui/input";
-import { Label } from "../ui/label";
+import { Button } from "../ui/button";
+import { ChromeIcon, GithubIcon } from "lucide-react";
 import Link from "next/link";
 
-export const LoginForm = () => {
+export const SignUpForm = () => {
   return (
     <Card className="w-[450px] z-10 mx-auto">
       <CardHeader>
@@ -15,13 +13,17 @@ export const LoginForm = () => {
           <h1 className="text-3xl font-semibold">Formly.</h1>
         </div>
         <div className="w-full flex flex-col items-start space-y-1">
-          <h2 className="text-xl font-semibold">Login</h2>
+          <h2 className="text-xl font-semibold">Register</h2>
           <p className="text-sm font-normal text-muted-foreground">
-            Login in to your account
+            Create a account and start building
           </p>
         </div>
       </CardHeader>
       <CardContent className="space-y-6">
+        <div className="w-full flex flex-col items-start space-y-2">
+          <Label>Name</Label>
+          <Input placeholder="Your name" type="text" />
+        </div>
         <div className="w-full flex flex-col items-start space-y-2">
           <Label>Email</Label>
           <Input placeholder="youremail@example.com" type="email" />
@@ -55,10 +57,10 @@ export const LoginForm = () => {
       <CardFooter className="flex items-center justify-center">
         <div className="flex items-center">
           <p className="text-muted-foreground text-sm -mr-2">
-            Don&apos;t have an account?
+            Already have an account?
           </p>
           <Button variant="link" asChild>
-            <Link href="/auth/signup">Register</Link>
+            <Link href="/auth/login">Login</Link>
           </Button>
         </div>
       </CardFooter>
