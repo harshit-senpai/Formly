@@ -14,7 +14,11 @@ export const Banner = () => {
       <div className="container">
         <p className="text-black font-bold">
           <span className="hidden sm:inline">⭐ Leave a star on </span>
-          <Link href="/" className="underline underline-offset-4">
+          <Link
+            href="https://github.com/harshit-senpai/Formly"
+            target="_blank"
+            className="underline underline-offset-4"
+          >
             GitHub
           </Link>
         </p>
