@@ -2,23 +2,25 @@ import bcrypt from "bcryptjs";
 import { NextAuthConfig } from "next-auth";
 import { getUserByEmail } from "./data/user";
 import credentials from "next-auth/providers/credentials";
+import { LogInSchema } from "./actions/loginUser/schema";
 
 export default {
   providers: [
     credentials({
       async authorize(credentials) {
-        const { email, password } = credentials;
+        const validatedFields = LogInSchema.safeParse(credentials);
 
-        const user = await getUserByEmail(email as string);
+        if (validatedFields.success) {
+          const { email, password } = validatedFields.data;
 
-        if (!user || !user.password) {
-          const passwordMatch = await bcrypt.compare(
-            password as string,
-            user?.password as string
-          );
+          const user = await getUserByEmail(email);
+          if (!user || !user.password) return null;
+
+          const passwordMatch = await bcrypt.compare(password, user.password);
 
           if (passwordMatch) return user;
         }
+
         return null;
       },
     }),

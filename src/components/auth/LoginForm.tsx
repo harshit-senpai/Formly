@@ -1,16 +1,11 @@
 "use client";
 
+import { ChromeIcon, GithubIcon } from "lucide-react";
+import { Button } from "../ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { ChromeIcon, GithubIcon } from "lucide-react";
+import { Label } from "../ui/label";
 import Link from "next/link";
-import { useAction } from "@/hooks/useAction";
-import { createUser } from "@/actions/createUser";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { CreateUserSchema } from "@/actions/createUser/schema";
-import { z } from "zod";
 import {
   Form,
   FormControl,
@@ -19,28 +14,33 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { LogInSchema } from "@/actions/loginUser/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useAction } from "@/hooks/useAction";
 import { toast } from "sonner";
+import { loginUser } from "@/actions/loginUser";
 
-export const SignUpForm = () => {
-  const form = useForm<z.infer<typeof CreateUserSchema>>({
-    resolver: zodResolver(CreateUserSchema),
+export const LoginForm = () => {
+  const form = useForm<z.infer<typeof LogInSchema>>({
+    resolver: zodResolver(LogInSchema),
     defaultValues: {
       email: "",
       password: "",
-      name: "",
     },
   });
 
-  const { execute, fieldErrors, isLoading } = useAction(createUser, {
+  const { execute, isLoading } = useAction(loginUser, {
     onSuccess: () => {
-      toast.success("Registered successfully, continue to signIn");
+      toast.success("Logged in successfully");
     },
     onError: (error) => {
       toast.error(error);
     },
   });
 
-  const onSubmit = (values: z.infer<typeof CreateUserSchema>) => {
+  const onSubmit = (values: z.infer<typeof LogInSchema>) => {
     execute(values);
   };
 
@@ -51,9 +51,9 @@ export const SignUpForm = () => {
           <h1 className="text-3xl font-semibold">Formly.</h1>
         </div>
         <div className="w-full flex flex-col items-start space-y-1">
-          <h2 className="text-xl font-semibold">Register</h2>
+          <h2 className="text-xl font-semibold">Login</h2>
           <p className="text-sm font-normal text-muted-foreground">
-            Create a account and start building
+            Login in to your account
           </p>
         </div>
       </CardHeader>
@@ -61,24 +61,6 @@ export const SignUpForm = () => {
         <Form {...form}>
           <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
             <div className="space-y-4">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="Your name"
-                        type="name"
-                        disabled={isLoading}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <FormField
                 control={form.control}
                 name="email"
@@ -117,7 +99,7 @@ export const SignUpForm = () => {
               />
             </div>
             <Button type="submit" className="w-full">
-              Register
+              Login
             </Button>
           </form>
         </Form>
@@ -145,10 +127,10 @@ export const SignUpForm = () => {
       <CardFooter className="flex items-center justify-center">
         <div className="flex items-center">
           <p className="text-muted-foreground text-sm -mr-2">
-            Already have an account?
+            Don&apos;t have an account?
           </p>
           <Button variant="link" asChild>
-            <Link href="/auth/login">Login</Link>
+            <Link href="/auth/signup">Register</Link>
           </Button>
         </div>
       </CardFooter>
