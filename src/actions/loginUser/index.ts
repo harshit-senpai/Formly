@@ -1,7 +1,6 @@
 "use server";
 
 import { signIn } from "@/auth";
-import { getUserByEmail } from "@/data/user";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
 import { InputType, ReturnType } from "./types";
