@@ -23,6 +23,7 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
+  Form          Form[]
 }
 
 model Account {
@@ -42,4 +43,35 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+}
+
+model Form {
+  id          Int     @id @default(autoincrement())
+  userId      String
+  name        String
+  description String?
+  content     String  @default("[]")
+  visits      Int     @default(0)
+  submissions Int     @default(0)
+  idPublished Boolean @default(false)
+
+  shareUrl        String           @default(uuid())
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  formSubmissions FormSubmission[]
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model FormSubmission {
+  id          Int      @id @default(autoincrement())
+  formId      Int
+  content     String
+  form        Form     @relation(fields: [formId], references: [id])
+  submittedAt DateTime @default(now())
+
+  @@index([formId])
+  @@index([submittedAt])
 }

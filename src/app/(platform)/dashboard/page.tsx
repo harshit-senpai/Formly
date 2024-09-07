@@ -12,6 +12,9 @@ import { Separator } from "@/components/ui/separator";
 import { StickyNote } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
+import { FaWpforms } from "react-icons/fa";
+import { HiCursorClick } from "react-icons/hi";
+import { TbArrowBounce } from "react-icons/tb";
 
 const DashboardPage = () => {
   return (
@@ -41,42 +44,42 @@ const DashboardPage = () => {
               <Card className="bg-card border rounded-xl text-card-foreground shadow">
                 <CardHeader className="p-6 flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="tracking-tighter text-sm font-medium">
-                    Total Forms
+                    Total Submissions
                   </CardTitle>
-                  <SiGoogleforms className="h-4 w-4 text-muted-foreground" />
+                  <FaWpforms className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent className="p-6 pt-0">
                   <div className="text-2xl font-bold">+10000</div>
                   <p className="text-sm text-muted-foreground">
-                    All of your forms
+                    All form submissions
                   </p>
                 </CardContent>
               </Card>
               <Card className="bg-card border rounded-xl text-card-foreground shadow">
                 <CardHeader className="p-6 flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="tracking-tighter text-sm font-medium">
-                    Total Forms
+                    Submission Rate
                   </CardTitle>
-                  <SiGoogleforms className="h-4 w-4 text-muted-foreground" />
+                  <HiCursorClick className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent className="p-6 pt-0">
-                  <div className="text-2xl font-bold">+10000</div>
+                  <div className="text-2xl font-bold">0%</div>
                   <p className="text-sm text-muted-foreground">
-                    All of your forms
+                    Submissions per visit
                   </p>
                 </CardContent>
               </Card>
               <Card className="bg-card border rounded-xl text-card-foreground shadow">
                 <CardHeader className="p-6 flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="tracking-tighter text-sm font-medium">
-                    Total Forms
+                    Bounce Rate
                   </CardTitle>
-                  <SiGoogleforms className="h-4 w-4 text-muted-foreground" />
+                  <TbArrowBounce className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent className="p-6 pt-0">
-                  <div className="text-2xl font-bold">+10000</div>
+                  <div className="text-2xl font-bold">0%</div>
                   <p className="text-sm text-muted-foreground">
-                    All of your forms
+                    Non Submissions per visit
                   </p>
                 </CardContent>
               </Card>
