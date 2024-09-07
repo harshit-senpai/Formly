@@ -15,6 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { FaWpforms } from "react-icons/fa";
 import { HiCursorClick } from "react-icons/hi";
 import { TbArrowBounce } from "react-icons/tb";
+import { CreateFormButton } from "@/components/form/CreateFormButton";
 
 const DashboardPage = () => {
   return (
@@ -89,14 +90,7 @@ const DashboardPage = () => {
             </div>
             <Separator orientation="horizontal" />
             <div className="mt-8 grid lg:grid-cols-2 xl:grid-cols-4 gap-4">
-              <Card className="bg-card border rounded-xl text-card-foreground  shadow flex flex-col items-center gap-4 justify-center border-dashed">
-                <CardContent className="p-6 flex flex-col items-center gap-4 justify-center">
-                  <StickyNote className="w-5 h-5 text-muted-foreground" />
-                  <p className="text-sm text-muted-foreground">
-                    Create a new Form
-                  </p>
-                </CardContent>
-              </Card>
+              <CreateFormButton />
               <Card className="bg-card border rounded-xl text-card-foreground  shadow ">
                 <CardHeader>
                   <CardTitle className="flex items-center justify-between gap-2">
