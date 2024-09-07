@@ -5,6 +5,7 @@ import { InputType, ReturnType } from "./types";
 import { db } from "@/lib/db";
 import { createSafeAction } from "@/lib/CreateSafeAction";
 import { CreateFormSchema } from "./schema";
+import { revalidatePath } from "next/cache";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const user = await getCurrentUser();
@@ -16,9 +17,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   }
 
   const { title, description } = data;
-
+  let form;
   try {
-    const form = await db.form.create({
+     form = await db.form.create({
       data: {
         userId: user.id,
         title,
@@ -26,14 +27,16 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       },
     });
 
-    return {
-      data: form,
-    };
   } catch (error) {
     return {
       error: "Cannot create form",
     };
   }
+  
+  revalidatePath("/dashboard");
+  return {
+    data: form,
+  };
 };
 
 export const createForm = createSafeAction(CreateFormSchema, handler);
